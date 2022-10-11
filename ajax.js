@@ -1,4 +1,4 @@
-const ws = new WebSocket("ws://localhost:8989");
+const ws = new WebSocket("wss://HOSTNAMEHERE:443");
 let downloadname
 
 ws.onopen = () => {

@@ -1,19 +1,17 @@
+const fs = require('fs');
+const WebSocket = require('ws');
+const https = require('https');
 
-function webServer() {
-    const fs = require('fs');
-    const WebSocket = require('ws');
-	const https = require('https');
+const server = new https.createServer({
+    cert: fs.readFileSync('./sec_certs/fullchain.pem'),
+    key: fs.readFileSync('./sec_certs/privkey.pem')
+});
 
-	const server = new https.createServer({
-    cert: fs.readFileSync('./sec_certs/server.crt'),
-    key: fs.readFileSync('./sec_certs/server.key')
-	});
-    const wss = new WebSocket.Server({
-        port: 8989
-    }, () => {
-        console.log('websocket server started!')
-    })
-    const path = require('path')
+const wss = new WebSocket.Server({server});
+
+console.log('websocket server started!')
+
+const path = require('path')
     const pathPublic = path.join(__dirname, '../source')
     let currentPath = pathPublic
 
@@ -67,7 +65,7 @@ function webServer() {
         })
     })
 
-}
 
 
-exports.createServer = webServer;
+//Start the server
+server.listen(443);
