@@ -6,10 +6,10 @@ ws.onopen = () => {
 }
 
 ws.onclose = () => {
-    console.log('服务器断开了连接')
+    console.log('SERVER DISCONNECTED')
 }
 ws.onmessage = (message) => {
-    console.log('收到服务器消息')
+    console.log('Server response received')
     const BlobReader = new FileReader()
     let data = message.data
 
@@ -31,12 +31,12 @@ ws.onmessage = (message) => {
             }
             let button = document.createElement('button')
             button.setAttribute('onclick', 'download()')
-            button.innerText = '接收'
+            button.innerText = 'PayLoad'
             document.getElementById('FileList').append(button)
         }
 
     }
-    if (isJSON(data) == false && data == '连接成功') {
+    if (isJSON(data) == false && data == 'con. Succ') {
 
         document.getElementById('message').append(data)
 
@@ -56,20 +56,18 @@ ws.onmessage = (message) => {
                     const ctx = cv.getContext('2d');
                     cv.setAttribute('width', this.width)
                     cv.setAttribute('height', this.height)
-                    ctx.drawImage(this, 0, 0, this.width, this.height, 0, 0, this.width, this.height); //this即是imgObj,保持图片的原始大小：470*480
-                    //ctx.drawImage(this, 0, 0,1024,768);//改变图片的大小到1024*768
+                    ctx.drawImage(this, 0, 0, this.width, this.height, 0, 0, this.width, this.height); 
+                    
                     document.getElementById('PictureShow').append(cv)
-                    /*cv.toBlob(function (blob) {
-                        saveAs(blob, downloadname);
-                    });*/
+                    
                 }
 
             }
         })
 
-        console.log('下载启动')
+        console.log('starting download')
         console.log(data)
-        var file = new File([data], downloadname); //浏览器原生解码不支持中文
+        var file = new File([data], downloadname); 
         saveAs(file);
 
 
