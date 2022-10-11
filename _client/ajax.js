@@ -36,7 +36,7 @@ ws.onmessage = (message) => {
         }
 
     }
-    if (isJSON(data) == false && data == 'con. Succ') {
+    if (isJSON(data) == false && data == 'hello, connection success!') {
 
         document.getElementById('message').append(data)
 
